@@ -213,16 +213,17 @@ Public Function IdWriteFile(nId, nStartRow) As Boolean
     nIdx = 0
     Worksheets(g_sRest).Activate
     nColumnRest = FindColumnByString(sRestDay, nStartSearchRow)
-    If nColumnRest < 0 Then Exit Function
-    nRow = nStartSearchRow + 1
-    Do
-      vCellContent = Cells(nRow, nColumnRest).Value
-      If IsDate(vCellContent) Then
-        ardRest(nIdx) = vCellContent
-        nRow = nRow + 1
-        nIdx = nIdx + 1
-      End If
-    Loop Until IsEmpty(vCellContent)
+    If nColumnRest >= 0 Then
+      nRow = nStartSearchRow + 1
+      Do
+        vCellContent = Cells(nRow, nColumnRest).Value
+        If IsDate(vCellContent) Then
+          ardRest(nIdx) = vCellContent
+          nRow = nRow + 1
+          nIdx = nIdx + 1
+        End If
+      Loop Until IsEmpty(vCellContent)
+    End If
   End If
   
   ' Generate Biomüll date table
@@ -231,16 +232,17 @@ Public Function IdWriteFile(nId, nStartRow) As Boolean
     nIdx = 0
     Worksheets(g_sBio).Activate
     nColumnBio = FindColumnByString(sBioDay, nStartSearchRow)
-    If nColumnBio < 0 Then Exit Function
-    nRow = nStartSearchRow + 1
-    Do
-      vCellContent = Cells(nRow, nColumnBio).Value
-      If IsDate(vCellContent) Then
-        ardBio(nIdx) = vCellContent
-        nRow = nRow + 1
-        nIdx = nIdx + 1
-      End If
-    Loop Until IsEmpty(vCellContent)
+    If nColumnBio >= 0 Then
+      nRow = nStartSearchRow + 1
+      Do
+        vCellContent = Cells(nRow, nColumnBio).Value
+        If IsDate(vCellContent) Then
+          ardBio(nIdx) = vCellContent
+          nRow = nRow + 1
+          nIdx = nIdx + 1
+        End If
+      Loop Until IsEmpty(vCellContent)
+    End If
   End If
   
   ' Generate GelberSack date table
@@ -249,16 +251,17 @@ Public Function IdWriteFile(nId, nStartRow) As Boolean
     nIdx = 0
     Worksheets(g_sGS).Activate
     nColumnGS = FindColumnByString(sGSTour, nStartSearchRow)
-    If nColumnGS < 0 Then Exit Function
-    nRow = nStartSearchRow + 1
-    Do
-      vCellContent = Cells(nRow, nColumnGS).Value
-      If IsDate(vCellContent) Then
-        ardGS(nIdx) = vCellContent
-        nRow = nRow + 1
-        nIdx = nIdx + 1
-      End If
-    Loop Until IsEmpty(vCellContent)
+    If nColumnGS >= 0 Then
+      nRow = nStartSearchRow + 1
+      Do
+        vCellContent = Cells(nRow, nColumnGS).Value
+        If IsDate(vCellContent) Then
+          ardGS(nIdx) = vCellContent
+          nRow = nRow + 1
+          nIdx = nIdx + 1
+        End If
+      Loop Until IsEmpty(vCellContent)
+    End If
   End If
   
   ' Write collected data to file
@@ -360,8 +363,12 @@ Public Function FindColumnByString(sString, nStartRow) As Integer
   Loop
   
   If nColumn = nMaxColumn Then
-    sMsg = "Search String <" & sString & "> not found in row " & nRow & "!"
-    MsgBox (sMsg)
+    ' The data for the streets ("Schwabner Au", ' "Staudham", ID=247) which only
+    ' have schedules for "Gelber Sack" (NO "Restmüll" or "Biomüll") shall be
+    ' exported as well. Hence do not indicate this state as an error with the
+    ' message box anymore.
+    'sMsg = "Search String <" & sString & "> not found in row " & nRow & "!"
+    'MsgBox (sMsg)
     FindColumnByString = -1
   Else
     FindColumnByString = nColumn
