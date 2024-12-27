@@ -10,7 +10,7 @@ Dieser Abfallkalender ist für die folgende Gemeinde im Landkreis Ebersberg gül
 85570 Markt Schwaben
 ```
 
-Er basiert auf dem von der Gemeinde zur Verfügung gestelltem Dokument in Form eines PDFs, welches auch unter folgender Web-Adresse zu finden ist:
+Er basiert auf dem von der Gemeinde zur Verfügung gestelltem Dokument in Form eines PDFs, welches auch unter folgender Web-Adresse, direkt durch die Gemeinde,  bereitgestellt wird:
 
 https://www.markt-schwaben.de/Abfuhrkalender
 
